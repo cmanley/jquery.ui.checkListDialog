@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>checkListDialog example</title>
+<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script type="text/javascript" src="jquery.ui.checkListDialog.js"></script>
+</head>
+<body>
+<p>The dialog will position itself over the element it's attached to by default.</p>
+<table border="0" width="100%" style="margin-top: 10em">
+	<tr>
+		<td>
+			<button onclick="test1(this)">Test 1 (modal)</button>
+		</td>
+		<td align="center">
+			<button onclick="test2(this)">Test 2 (with pre-checked items)</button>
+		</td>
+		<td align="center">
+			<button id="btn3">Test 3 (modal, no title)</button>
+		</td>
+		<td align="right">
+			<button id="btn4">Test 4 (same as test 3)</button>
+		</td>
+	</tr>
+</table>
+<script type="text/javascript">
+//<![CDATA[
+
+// Map of checkbox value and associated text pairs. This can come from a AJAX call or database query.
+var pairs = {
+	'1'	: 'Aaliyah',
+	'2'	: 'Abella',
+	'3'	: 'Adrianna',
+	'4'	: 'Aiden',
+	'5'	: 'Anikka',
+	'6'	: 'Anna',
+	'7'	: 'Ash',
+	'8'	: 'Bethany',
+	'9'	: 'Bibi',
+	'10': 'Bonnie',
+	'11': 'Brooklyn',
+	'12': 'Chanel',
+	'13': 'Dani',
+	'14': 'Holly',
+	'15': 'Jessie',
+	'16': 'Jynx',
+	'17': 'Kortney',
+	'18': 'Leilani',
+	'19': 'Lexi',
+	'20': 'Lily',
+	'21': 'Lizz',
+	'22': 'Maddy',
+	'23': 'Nicole',
+	'24': 'Penny',
+	'25': 'Remy',
+	'26': 'Riley',
+	'27': 'Rina',
+	'28': 'Samantha',
+	'29': 'Tanner',
+	'30': 'Tasha',
+	'31': 'Veronica',
+	'32': 'Vicki',
+	'33': 'Zoe'
+};
+
+function test1(btn) {
+	$(btn).checkListDialog({
+		callbacks: {
+			ok: function(selection) {
+				alert("OK! You selected:\n" + selection.join("\n"));
+			},
+			cancel: function() {
+				alert('You cancelled the dialog');
+			}
+		},
+		dialog: {
+			title: "Choose names (test 1)"
+		},
+		pairs: pairs
+	});
+}
+
+function test2(btn) {
+	$(btn).checkListDialog({
+		callbacks: {
+			ok: function(selection) {
+				alert("OK! You selected:\n" + selection.join("\n"));
+			},
+			cancel: function() {
+				alert('You cancelled the dialog');
+			}
+		},
+		dialog: {
+			title: "Choose names (test 2)",
+			modal: false
+		},
+		pairs: pairs,
+		checked: [2,4,6,8]
+	});
+}
+
+// Alternative way of binding a click event to 1 or more elements.
+$('#btn3, #btn4').on('click', function() {
+	$(this).checkListDialog({
+		callbacks: {
+			ok: function(selection) {
+				alert("OK! You selected:\n" + selection.join("\n"));
+			},
+		},
+		pairs: pairs
+	});
+});
+
+//]]>
+</script>
+</body>
+</html>
