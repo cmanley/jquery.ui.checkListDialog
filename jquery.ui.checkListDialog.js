@@ -67,6 +67,29 @@ Id: jquery.ui.checkListDialog.js,v 1.1 2013/10/12 18:24:39 cmanley Exp
 		$.each(opts.checked, function(i,v) {
 			checked[v] = true;
 		});
+		// This should be implemented with an argument.
+		if (1) {
+			var label = document.createElement('label');
+			$(label).css({display: 'block'})
+			.on('mouseover', function() {
+				$(this).css(opts.label.mouseover.css);
+			})
+			.on('mouseout', function() {
+				$(this).css(opts.label.mouseout.css);
+			})
+			var cb = document.createElement('input');
+			$(cb).attr({
+				type: 'checkbox',
+				value: ''
+			});
+			$(cb).click(function() {
+				$("input[type=checkbox]").prop('checked',this.checked);
+			});
+			label.appendChild(cb);
+			label.appendChild(document.createTextNode('check/uncheck all'));
+			d.appendChild(label);
+		}
+
 		$.each(opts.pairs, function(value, text) {
 			var label = document.createElement('label');
 			label.className = 'cldlg_label';
