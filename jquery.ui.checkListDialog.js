@@ -82,11 +82,8 @@ Id: jquery.ui.checkListDialog.js,v 1.1 2013/10/12 18:24:39 cmanley Exp
 				type: 'checkbox',
 				value: ''
 			});
-			$(cb).click(function(d) {
-				var nodes = document.querySelectorAll('input[type=checkbox]'); // jQuery doesn't work on dynamically create DOM.
-				for (var i = 0; i < nodes.length; ++i) {
-					nodes[i].checked =  (nodes[0].checked) ? true : false;
-				}
+			$(cb).click(function() {
+				$("input[type=checkbox]").prop('checked',this.checked);
 			});
 			label.appendChild(cb);
 			label.appendChild(document.createTextNode('check/uncheck all'));
