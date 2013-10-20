@@ -9,7 +9,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 TODO: Implement key up/down navigation
 
-Id: jquery.ui.checkListDialog.js,v 1.1 2013/10/12 18:24:39 cmanley Exp
+Id: jquery.ui.checkListDialog.js,v 1.2 2013/10/20 17:47:59 cmanley Exp
 */
 
 (function($) {
@@ -29,36 +29,16 @@ Id: jquery.ui.checkListDialog.js,v 1.1 2013/10/12 18:24:39 cmanley Exp
 				throw "Option callbacks." + name + " must be a function!";
 			}
 		});
-		var opts = $.extend(true, {
-			callbacks: {
-				ok: null,
-				cancel: null
-			},
-			class: 'CheckListDialog',
-			dialog: {
-				maxHeight: $(window).height(),
-				maxWidth: $(window).width(),
-				modal: true,
-				position: {
-					of: this
+		var opts = $.extend(true,
+			{
+				dialog: {
+					maxHeight: $(window).height(),
+					maxWidth: $(window).width()
 				}
 			},
-			label: {
-				mouseout: {
-					css: {
-						backgroundColor: ''
-					}
-				},
-				mouseover: {
-					css: {
-						backgroundColor: '#c4e8fd'
-					}
-				}
-			},
-			enter_is_ok: true,
-			pairs: null,
-			checked: []
-		}, options);
+			$.fn.checkListDialog.defaults,
+			options
+		);
 
 		// Dynamically create content for use in dialog.
 		var d = document.createElement('div');
@@ -67,16 +47,33 @@ Id: jquery.ui.checkListDialog.js,v 1.1 2013/10/12 18:24:39 cmanley Exp
 		$.each(opts.checked, function(i,v) {
 			checked[v] = true;
 		});
+
+		// Toggle all on/off option
+		if (opts.toggle_all) {
+			var label = document.createElement('label');
+			label.className = 'cldlg_toggle_all';
+			var cb = document.createElement('input');
+			$(cb)
+			.attr({
+				type: 'checkbox',
+				value: ''
+			})
+			.click(function() {
+				var nodes = d.querySelectorAll('input[type=checkbox]' + (this.checked ? ':not(:checked)' : ':checked')); // jQuery doesn't work on dynamically create DOM.
+				for (var i = 0; i < nodes.length; ++i) {
+					nodes[i].checked = this.checked;
+				}
+			});
+			label.appendChild(cb);
+			if (opts.toggle_all_text) {
+				label.appendChild(document.createTextNode(opts.toggle_all_text));
+			}
+			d.appendChild(label);
+		}
+
 		$.each(opts.pairs, function(value, text) {
 			var label = document.createElement('label');
-			label.className = 'cldlg_label';
-			$(label).css({display: 'block'})
-			.on('mouseover', function() {
-				$(this).css(opts.label.mouseover.css);
-			})
-			.on('mouseout', function() {
-				$(this).css(opts.label.mouseout.css);
-			})
+			label.className = 'cldlg_option';
 			var cb = document.createElement('input');
 			if (value in checked) {
 				cb.defaultChecked = true;
@@ -126,12 +123,6 @@ Id: jquery.ui.checkListDialog.js,v 1.1 2013/10/12 18:24:39 cmanley Exp
 			}
 		};
 		var $d = $(d);
-		$d.css({
-			display	: 'none',
-			height	: '100%',
-			width	: '100%',
-			overflow: 'auto'
-		});
 		if (opts.enter_is_ok) {
 			$d.keyup(function(e) {
 				if (e.keyCode == 13) {
@@ -144,5 +135,27 @@ Id: jquery.ui.checkListDialog.js,v 1.1 2013/10/12 18:24:39 cmanley Exp
 
 		// Chainable result
 		return this;
+	};
+
+	// Default options
+	$.fn.checkListDialog.defaults = {
+		callbacks: {
+			ok: null,
+			cancel: null
+		},
+		class: 'cldlg',
+		dialog: {
+			//maxHeight:
+			//maxWidth:
+			modal: true,
+			position: {
+				of: this
+			}
+		},
+		enter_is_ok: true,
+		pairs: null,
+		checked: [],
+		toggle_all: false,
+		toggle_all_text: 'toggle all'
 	};
 })(jQuery);

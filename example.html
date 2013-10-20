@@ -6,7 +6,13 @@
 <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+<link type="text/css" rel="stylesheet" href="jquery.ui.checkListDialog.css" />
 <script type="text/javascript" src="jquery.ui.checkListDialog.js"></script>
+
+<!-- optional alternate language: -->
+<script type="text/javascript" src="i18n/nl.js"></script>
+
 </head>
 <body>
 <p>The dialog will position itself over the element it's attached to by default.</p>
@@ -98,6 +104,7 @@ function test2(btn) {
 			modal: false
 		},
 		pairs: pairs,
+		toggle_all: true,
 		checked: [2,4,6,8]
 	});
 }
@@ -110,7 +117,8 @@ $('#btn3, #btn4').on('click', function() {
 				alert("OK! You selected:\n" + selection.join("\n"));
 			},
 		},
-		pairs: pairs
+		pairs: pairs,
+		toggle_all: true
 	});
 });
 
