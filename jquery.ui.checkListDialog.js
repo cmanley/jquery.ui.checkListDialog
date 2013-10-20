@@ -9,7 +9,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 TODO: Implement key up/down navigation
 
-Id: jquery.ui.checkListDialog.js,v 1.2 2013/10/20 17:47:59 cmanley Exp
+Id: jquery.ui.checkListDialog.js,v 1.3 2013/10/20 18:10:39 cmanley Exp
 */
 
 (function($) {
@@ -107,7 +107,7 @@ Id: jquery.ui.checkListDialog.js,v 1.2 2013/10/20 17:47:59 cmanley Exp
 				var result = [];
 				if (ok_clicked) {
 					var nodes = this.querySelectorAll('input[type=checkbox]:checked'); // jQuery doesn't work on dynamically create DOM.
-					for (var i = 0; i < nodes.length; ++i) {
+					for (var i = opts.toggle_all ? 1 : 0; i < nodes.length; ++i) {
 						result.push(nodes[i].value);
 					}
 				}
