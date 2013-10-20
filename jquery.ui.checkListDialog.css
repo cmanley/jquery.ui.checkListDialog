@@ -1,0 +1,37 @@
+﻿/*
+jQuery-ui checkListDialog plugin
+
+Copyright © 2013 Craig Manley
+http://www.craigmanley.com/
+
+Licensed under MIT
+http://www.opensource.org/licenses/mit-license.php
+
+$Id: jquery.ui.checkListDialog.css,v 1.1 2013/10/20 17:47:59 cmanley Exp $
+*/
+
+div.cldlg {
+	display	: none;
+	height	: 100%;
+	width	: 100%;
+	overflow: auto;
+}
+
+	div.cldlg label {
+		display: block;
+		vertical-align: middle;
+		white-space: nowrap;
+	}
+
+	div.cldlg label.cldlg_toggle_all {
+		background-color: #ccc;
+		border: 1px solid #aaa;
+	}
+
+	div.cldlg label.cldlg_option:hover {
+		background-color: #c4e8fd;
+	}
+
+		div.cldlg label input {
+			vertical-align: middle;
+		}
