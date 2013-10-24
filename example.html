@@ -76,7 +76,7 @@ function test1(btn) {
 	$(btn).checkListDialog({
 		callbacks: {
 			ok: function(selection) {
-				alert("OK! You selected:\n" + selection.join("\n"));
+				alert("OK! You selected:\n" + selection.map(function(x) { return x + ': ' + pairs[x]; }).join("\n"));
 			},
 			cancel: function() {
 				alert('You cancelled the dialog');
@@ -93,7 +93,7 @@ function test2(btn) {
 	$(btn).checkListDialog({
 		callbacks: {
 			ok: function(selection) {
-				alert("OK! You selected:\n" + selection.join("\n"));
+				alert("OK! You selected:\n" + selection.map(function(x) { return x + ': ' + pairs[x]; }).join("\n"));
 			},
 			cancel: function() {
 				alert('You cancelled the dialog');
@@ -114,7 +114,7 @@ $('#btn3, #btn4').on('click', function() {
 	$(this).checkListDialog({
 		callbacks: {
 			ok: function(selection) {
-				alert("OK! You selected:\n" + selection.join("\n"));
+				alert("OK! You selected:\n" + selection.map(function(x) { return x + ': ' + pairs[x]; }).join("\n"));
 			},
 		},
 		pairs: pairs,
