@@ -9,4 +9,4 @@ jquery-ui
 
 ## Usage
 
-See example.html
+See examples directory.

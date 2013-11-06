@@ -7,7 +7,7 @@ http://www.craigmanley.com/
 Licensed under MIT
 http://www.opensource.org/licenses/mit-license.php
 
-TODO: Implement key up/down navigation
+TODO: If possible, use CSS classes from jquery-ui for styling group headers, highlighted option, etc.
 
 Id: jquery.ui.checkListDialog.js,v 1.4 2013/10/24 19:42:32 cmanley Exp
 */
@@ -19,6 +19,9 @@ Id: jquery.ui.checkListDialog.js,v 1.4 2013/10/24 19:42:32 cmanley Exp
 				throw "Mandatory option '" + name + "' is missing!";
 			}
 		});
+		if (!$.isPlainObject(options['pairs'])) {
+			throw "Option 'pairs' must be a plain object of key => value pairs!";
+		}
 		$.each(['ok'], function(i, name) {
 			if (!options.callbacks[name]) {
 				throw "Mandatory option callbacks." + name + " is missing!";
@@ -71,20 +74,46 @@ Id: jquery.ui.checkListDialog.js,v 1.4 2013/10/24 19:42:32 cmanley Exp
 			d.appendChild(label);
 		}
 
-		$.each(opts.pairs, function(value, text) {
-			var label = document.createElement('label');
-			label.className = 'cldlg_option';
-			var cb = document.createElement('input');
-			if (value in checked) {
-				cb.defaultChecked = true;
+		$.each(opts.pairs, function(k, v) {
+			if ($.isPlainObject(v)) { // group
+				var group = document.createElement('div');
+				group.className = 'cldlg_group';
+				var header = document.createElement('div');
+				header.className = 'cldlg_group_header';
+				header.appendChild(document.createTextNode(k));
+				group.appendChild(header);
+				$.each(v, function(kk, vv) {
+					var label = document.createElement('label');
+					label.className = 'cldlg_option';
+					var cb = document.createElement('input');
+					if (kk in checked) {
+						cb.defaultChecked = true;
+					}
+					$(cb).attr({
+						type: 'checkbox',
+						value: kk
+					});
+					label.appendChild(cb);
+					label.appendChild(document.createTextNode(vv));
+					group.appendChild(label);
+				});
+				d.appendChild(group);
 			}
-			$(cb).attr({
-				type: 'checkbox',
-				value: value
-			});
-			label.appendChild(cb);
-			label.appendChild(document.createTextNode(text));
-			d.appendChild(label);
+			else {
+				var label = document.createElement('label');
+				label.className = 'cldlg_option';
+				var cb = document.createElement('input');
+				if (k in checked) {
+					cb.defaultChecked = true;
+				}
+				$(cb).attr({
+					type: 'checkbox',
+					value: k
+				});
+				label.appendChild(cb);
+				label.appendChild(document.createTextNode(v));
+				d.appendChild(label);
+			}
 		});
 
 		// Show jQuery-ui dialog

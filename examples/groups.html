@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>checkListDialog example</title>
+<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<link type="text/css" rel="stylesheet" href="../jquery.ui.checkListDialog.css" />
+<script type="text/javascript" src="../jquery.ui.checkListDialog.js"></script>
+<!-- optional alternate language: -->
+<!--<script type="text/javascript" src="../i18n/nl.js"></script>-->
+</head>
+<body>
+<p>The dialog will position itself over the element it's attached to by default.</p>
+<table border="0" width="100%" style="margin-top: 10em">
+	<tr>
+		<td>
+			<button onclick="test(this)">Test groups</button>
+		</td>
+	</tr>
+</table>
+<script type="text/javascript">
+//<![CDATA[
+
+// Map of group name => { checkbox value => associated text pairs }. This can come from a AJAX call or database query.
+var pairs = {
+	'Names A-H': {
+		'1'	: 'Aaliyah',
+		'2'	: 'Abella',
+		'3'	: 'Adrianna',
+		'4'	: 'Aiden',
+		'5'	: 'Anikka',
+		'6'	: 'Anna',
+		'7'	: 'Ash',
+		'8'	: 'Bethany',
+		'9'	: 'Bibi',
+		'10': 'Bonnie',
+		'11': 'Brooklyn',
+		'12': 'Chanel',
+		'13': 'Dani',
+		'14': 'Holly'
+	},
+	'Names J-P': {
+		'15': 'Jessie',
+		'16': 'Jynx',
+		'17': 'Kortney',
+		'18': 'Leilani',
+		'19': 'Lexi',
+		'20': 'Lily',
+		'21': 'Lizz',
+		'22': 'Maddy',
+		'23': 'Nicole',
+		'24': 'Penny'
+	},
+	'Names R-V': {
+		'25': 'Remy',
+		'26': 'Riley',
+		'27': 'Rina',
+		'28': 'Samantha',
+		'29': 'Tanner',
+		'30': 'Tasha',
+		'31': 'Veronica',
+		'32': 'Vicki',
+		'33': 'Zoe'
+	}
+};
+
+function test(btn) {
+	$(btn).checkListDialog({
+		callbacks: {
+			ok: function(selection) {
+				// Create shallow map of key => value pairs in order to get the selected names for this demo.
+				// In practive, this is typically not necessary.
+				var shallow_pairs = {};
+				$.each(pairs, function(k, v) {
+					if ($.isPlainObject(v)) {
+						$.each(v, function(kk, vv) {
+							shallow_pairs[kk] = vv;
+						});
+					}
+					else {
+						shallow_pairs[k] = v;
+					}
+				});
+				alert("OK! You selected:\n" + selection.map(function(x) { return x + ': ' + shallow_pairs[x]; }).join("\n"));
+			},
+			cancel: function() {
+				alert('You cancelled the dialog');
+			}
+		},
+		dialog: {
+			title: "Choose names"
+		},
+		pairs: pairs
+	});
+}
+
+//]]>
+</script>
+</body>
+</html>

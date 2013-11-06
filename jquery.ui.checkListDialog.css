@@ -1,7 +1,7 @@
-﻿/*
+﻿ï»¿/*
 jQuery-ui checkListDialog plugin
 
-Copyright © 2013 Craig Manley
+Copyright Â© 2013 Craig Manley
 http://www.craigmanley.com/
 
 Licensed under MIT
@@ -16,6 +16,18 @@ div.cldlg {
 	width	: 100%;
 	overflow: auto;
 }
+
+	div.cldlg_group {
+	}
+
+		div.cldlg_group_header {
+			background-color: ButtonFace;
+			color: ButtonText;
+		}
+
+		div.cldlg_group label {
+			padding-left: 1em;
+		}
 
 	div.cldlg label {
 		display: block;
